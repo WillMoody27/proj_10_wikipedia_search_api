@@ -65,14 +65,16 @@ form input::placeholder {
 }
 form button {
   border: none;
-  padding: 10px;
+  padding: 9px;
   border-radius: 10px;
-  color: rgb(82, 82, 82);
-  outline: 1px solid #000;
+  color: #fff;
+  font-size: 1.1rem;
   font-weight: bold;
+  background: #ccc;
   transition: var(--primary-transition);
   outline: none;
   margin: 0.7rem;
+  cursor: pointer;
 }
 form button:hover {
   background: #00a2ff;
