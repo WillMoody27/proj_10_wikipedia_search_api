@@ -1,22 +1,17 @@
-// Make URL Dynamic
-const url =
-  "https://en.wikipedia.org/w/api.php?action=query&list=search&srlimit=20&format=json&origin=*&srsearch=";
-
+import { url } from "./src/wikiDocs.js";
 const formDOM = document.querySelector(".form");
 const inputDOM = document.querySelector(".form-input");
 const resultsDOM = document.querySelector(".results");
 
-// console.log(formDOM, inputDOM, resultsDOM);
-
 formDOM.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent default form submission
-  const value = inputDOM.value; // input dom value that will be changed
+  e.preventDefault();
+  const value = inputDOM.value;
   if (!value) {
     resultsDOM.innerHTML =
       '<div class="error"><i class="fa-solid fa-circle-exclamation" id="caution-icon"></i> Please Enter A Valid Search Term</div>';
     return;
   }
-  fetchPages(value); // envoke callback wihin the event to read input on submit
+  fetchPages(value);
 });
 
 // ========= Important
@@ -25,14 +20,14 @@ const fetchPages = async (searchValue) => {
   try {
     // Fetch pages
     const response = await fetch(`${url + searchValue}`);
-    const data = await response.json(); // parse data to array
-    const { search } = data.query; // destruct the parameter for the search results
+    const data = await response.json();
+    const { search } = data.query;
     if (search.length < 1) {
       resultsDOM.innerHTML =
         '<div class="error"><i class="fa-solid fa-circle-exclamation" id="caution-icon"></i>no matching results. Please try again</div>';
       return;
     }
-    renderResults(search); // render data with method
+    renderResults(search);
   } catch (error) {
     resultsDOM.innerHTML = '<div class="error">There was an error....</div>';
   }
@@ -40,7 +35,6 @@ const fetchPages = async (searchValue) => {
 // ========= Important
 
 const renderResults = (list) => {
-  //   console.log(list);
   const cardLists = list
     .map((item) => {
       console.log(item);
@@ -56,7 +50,6 @@ const renderResults = (list) => {
         </article>`;
     })
     .join("");
-  // add to resultsDOM container to show output
   resultsDOM.innerHTML = cardLists;
 };
 
